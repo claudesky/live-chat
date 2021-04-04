@@ -13,6 +13,17 @@ const mix = require('laravel-mix');
 
 mix.disableNotifications();
 
+mix.webpackConfig({
+    module: {
+        rules: [
+            {
+                test: /\.pug$/,
+                loader: 'pug-plain-loader'
+            }
+        ]
+    }
+})
+
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
