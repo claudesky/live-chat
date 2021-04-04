@@ -13,6 +13,17 @@ const mix = require('laravel-mix');
 
 mix.disableNotifications();
 
+if (process.env.NODE_ENV == 'production'){
+
+    mix.setPublicPath('public');
+    mix.version();
+
+} else if (process.env.NODE_ENV == 'development'){
+
+    mix.setPublicPath('public/dev');
+
+}
+
 mix.webpackConfig({
     module: {
         rules: [
@@ -24,6 +35,6 @@ mix.webpackConfig({
     }
 })
 
-mix.js('resources/js/app.js', 'public/js')
+mix.js('resources/js/app.js', 'js')
     .vue()
-    .sass('resources/sass/app.scss', 'public/css')
+    .sass('resources/sass/app.scss', 'css')
