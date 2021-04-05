@@ -33,8 +33,6 @@ class LoginTest extends TestCase
             $payload,
         );
 
-        $response->dump();
-
         $response->assertStatus(200);
 
         $this->assertTrue(
