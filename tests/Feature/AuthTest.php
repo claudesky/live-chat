@@ -11,7 +11,7 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
-    private $base_uri = '/api/login';
+    private $base_uri = '/api/register';
 
     public function test_registration_works()
     {
