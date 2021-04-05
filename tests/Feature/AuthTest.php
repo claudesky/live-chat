@@ -8,6 +8,8 @@ use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_registration_works()
     {
         $uri = '/api/login';
