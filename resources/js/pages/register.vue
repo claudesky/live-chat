@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     submitRegistrationForm: function() {
-      axios.post('/api/login', this.form_data)
+      axios.post('/api/register', this.form_data)
     }
   }
 }
