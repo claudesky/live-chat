@@ -11,9 +11,11 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
+    private $base_uri = '/api/login';
+
     public function test_registration_works()
     {
-        $uri = '/api/login';
+        $uri = $this->base_uri;
 
         $payload = [
             'email' => 'test@example.org',
@@ -41,7 +43,7 @@ class AuthTest extends TestCase
 
     public function test_invalid_password_confirmation_fails()
     {
-        $uri = '/api/login';
+        $uri = $this->base_uri;
 
         $payload = [
             'email' => 'test@example.org',
@@ -77,7 +79,7 @@ class AuthTest extends TestCase
             'password' => bcrypt('password'),
         ]);
 
-        $uri = '/api/login';
+        $uri = $this->base_uri;
 
         $payload = [
             'email' => 'test@example.org',
