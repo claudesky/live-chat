@@ -37,4 +37,34 @@ class AuthTest extends TestCase
             ]
         );
     }
+
+    public function test_invalid_password_confirmation_fails()
+    {
+        $uri = '/api/login';
+
+        $payload = [
+            'email' => 'test@example.org',
+            'name' => 'John Doe',
+            'password' => 'password',
+            'password_confirmation' => 'wrongpassword',
+        ];
+
+        $response = $this->json(
+            'POST',
+            $uri,
+            $payload,
+        );
+
+        $response->assertStatus(422);
+
+        $response->assertJsonFragment([
+            'errors' => [
+                'password' => [
+                    'The password confirmation does not match.',
+                ],
+            ]
+        ]);
+
+        $this->assertDatabaseCount('users', 0);
+    }
 }
