@@ -49,6 +49,38 @@ class LoginTest extends TestCase
         );
     }
 
+    public function test_valid_login_returns_user()
+    {
+        $user = User::create([
+            'email' => 'test@example.org',
+            'name' => 'John Doe',
+            'password' => bcrypt('password'),
+        ]);
+
+        $uri = $this->base_uri;
+
+        $payload = [
+            'email' => 'test@example.org',
+            'password' => 'password',
+        ];
+
+        $response = $this->json(
+            'POST',
+            $uri,
+            $payload,
+        );
+
+        $response->assertStatus(200);
+
+        $response->assertJsonFragment(
+            $user->only([
+                'id',
+                'email',
+                'name',
+            ])
+        );
+    }
+
     public function test_invalid_login_fails()
     {
         $user = User::create([
