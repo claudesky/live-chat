@@ -7,7 +7,7 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function login(RegistrationRequest $request)
+    public function register(RegistrationRequest $request)
     {
         User::create(
             $request->all()
