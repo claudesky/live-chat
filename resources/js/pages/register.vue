@@ -11,6 +11,7 @@
           input(
             type="email"
             name="email"
+            required
             v-model="form_data.email"
           )#email.form-control
         .form-group
@@ -25,6 +26,7 @@
           input(
             type="password"
             name="password"
+            required
             v-model="form_data.password"
           )#password.form-control
         .form-group
@@ -32,6 +34,7 @@
           input(
             type="password"
             name="password_confirmation"
+            required
             v-model="form_data.password_confirmation"
           )#password-confirmation.form-control
         button(type="submit").btn.btn-primary Submit
