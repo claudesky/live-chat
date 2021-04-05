@@ -14,6 +14,13 @@
             v-model="form_data.email"
           )#email.form-control
         .form-group
+          label(for="name") Name
+          input(
+            name="name"
+            required
+            v-model="form_data.name"
+          )#name.form-control
+        .form-group
           label(for="password") Password
           input(
             type="password"
@@ -36,6 +43,7 @@ export default {
     return {
       form_data: {
         email: '',
+        name: '',
         password: '',
         password_confirmation: '',
       }
