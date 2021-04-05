@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -66,5 +67,33 @@ class AuthTest extends TestCase
         ]);
 
         $this->assertDatabaseCount('users', 0);
+    }
+
+    public function test_logged_in_user_cannot_register()
+    {
+        $existing_user = User::create([
+            'email' => 'user@example.org',
+            'name' => 'Jane Doe',
+            'password' => bcrypt('password'),
+        ]);
+
+        $uri = '/api/login';
+
+        $payload = [
+            'email' => 'test@example.org',
+            'name' => 'John Doe',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ];
+
+        $response = $this
+            ->actingAs($existing_user)
+            ->json(
+                'POST',
+                $uri,
+                $payload,
+            );
+
+        $response->assertStatus(403);
     }
 }
