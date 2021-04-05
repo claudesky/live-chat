@@ -48,4 +48,35 @@ class LoginTest extends TestCase
             'The wrong user is logged in'
         );
     }
+
+    public function test_invalid_login_fails()
+    {
+        $user = User::create([
+            'email' => 'test@example.org',
+            'name' => 'John Doe',
+            'password' => bcrypt('password'),
+        ]);
+
+        $uri = $this->base_uri;
+
+        $payload = [
+            'email' => 'test@example.org',
+            'password' => 'wrongpassword',
+        ];
+
+        $response = $this->json(
+            'POST',
+            $uri,
+            $payload,
+        );
+
+        $response->dump();
+
+        $response->assertStatus(401);
+
+        $this->assertFalse(
+            auth()->check(),
+            'A user is logged in but not supposed to be'
+        );
+    }
 }
