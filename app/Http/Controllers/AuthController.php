@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegistrationRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class AuthController extends Controller
         );
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $credentials_match = Auth::attempt(
             $request->only([
