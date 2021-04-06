@@ -12,7 +12,7 @@ class AuthController extends Controller
     public function register(RegistrationRequest $request)
     {
         User::create(
-            $request->all()
+            $request->validated()
         );
     }
 
