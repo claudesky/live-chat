@@ -5,8 +5,8 @@ Vue.use(VueRouter);
 
 // Page components
 import home from '../pages/home';
-import login from '../pages/login';
-import register from '../pages/register';
+
+import authentication from './authentication';
 
 const routes = [
     {
@@ -14,16 +14,7 @@ const routes = [
         name: 'home',
         component: home,
     },
-    {
-        path: '/login',
-        name: 'login',
-        component: login,
-    },
-    {
-        path: '/register',
-        name: 'register',
-        component: register,
-    },
+    ...authentication,
 ]
 
 const router = new VueRouter({
