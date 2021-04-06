@@ -15,11 +15,21 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-white
 export default {
   data() {
     return {
-      links: [
+    }
+  },
+  computed: {
+    'is_logged_in': function() {
+      return this.$store.getters['self/isLoggedIn']
+    },
+    'links': function() {
+      let common_links = [
         {
           'text': 'home',
           'route': {name: 'home'},
         },
+      ]
+
+      let guest_links = [
         {
           'text': 'login',
           'route': {name: 'login'},
@@ -29,6 +39,29 @@ export default {
           'route': {name: 'register'},
         },
       ]
+
+      let authorized_links = [
+        {
+          'text': 'account',
+          'route': {name: 'login'},
+        },
+        {
+          'text': 'logout',
+          'route': {name: 'register'},
+        },
+      ]
+
+      if (this.is_logged_in) {
+        return [
+          ...common_links,
+          ...authorized_links,
+        ]
+      } else {
+        return [
+          ...common_links,
+          ...guest_links,
+        ]
+      }
     }
   }
 }
