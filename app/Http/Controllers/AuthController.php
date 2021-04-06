@@ -33,6 +33,8 @@ class AuthController extends Controller
             'email' => $request->input('email')
         ])->first();
 
+        Auth::login($user);
+
         return $user;
     }
 }
