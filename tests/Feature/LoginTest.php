@@ -143,4 +143,40 @@ class LoginTest extends TestCase
             'A user is logged in but not supposed to be'
         );
     }
+
+    public function test_login_fails_without_password()
+    {
+        $user = User::create([
+            'email' => 'test@example.org',
+            'name' => 'John Doe',
+            'password' => bcrypt('password'),
+        ]);
+
+        $uri = $this->base_uri;
+
+        $payload = [
+            'email' => 'test@example.org',
+        ];
+
+        $response = $this->json(
+            'POST',
+            $uri,
+            $payload,
+        );
+
+        $response->assertStatus(422);
+
+        $response->assertJsonFragment([
+            'errors' => [
+                'password' => [
+                    'The password field is required.',
+                ],
+            ]
+        ]);
+
+        $this->assertFalse(
+            auth()->check(),
+            'A user is logged in but not supposed to be'
+        );
+    }
 }
