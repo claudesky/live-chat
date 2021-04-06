@@ -16,7 +16,10 @@ export default {
   data() {
     return {
     }
-  }
+  },
+  mounted() {
+    this.$store.dispatch('self/check')
+  },
 };
 </script>
 <style scoped>
