@@ -97,4 +97,41 @@ class RegistrationTest extends TestCase
 
         $response->assertStatus(403);
     }
+
+    public function test_user_can_login_after_registration()
+    {
+        $registration_uri = $this->base_uri;
+
+        $login_uri = '/api/login';
+
+        $registration_payload = [
+            'email' => 'test@example.org',
+            'name' => 'John Doe',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ];
+
+        $login_payload = [
+            'email' => 'test@example.org',
+            'password' => 'password',
+        ];
+
+        // Registration request
+        $registration_response = $this->json(
+            'POST',
+            $registration_uri,
+            $registration_payload,
+        );
+
+        $registration_response->assertSuccessful();
+
+        // Login request
+        $login_response = $this->json(
+            'POST',
+            $login_uri,
+            $login_payload,
+        );
+
+        $login_response->assertSuccessful();
+    }
 }
