@@ -70,6 +70,44 @@ class RegistrationTest extends TestCase
         $this->assertDatabaseCount('users', 0);
     }
 
+    public function test_already_taken_email_cannot_register()
+    {
+        $duplicate_email = 'test@example.org';
+
+        $existing_user = User::create([
+            'email' => $duplicate_email,
+            'name' => 'Jane Doe',
+            'password' => bcrypt('password'),
+        ]);
+
+        $uri = $this->base_uri;
+
+        $payload = [
+            'email' => $duplicate_email,
+            'name' => 'John Doe',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ];
+
+        $response = $this->json(
+            'POST',
+            $uri,
+            $payload,
+        );
+
+        $response->assertStatus(422);
+
+        $response->assertJsonFragment([
+            'errors' => [
+                'email' => [
+                    'The email has already been taken.',
+                ],
+            ]
+        ]);
+
+        $this->assertDatabaseCount('users', 1);
+    }
+
     public function test_logged_in_user_cannot_register()
     {
         $existing_user = User::create([
