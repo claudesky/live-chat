@@ -30,4 +30,18 @@ class RegistrationRequest extends FormRequest
             'password' => 'required|confirmed',
         ];
     }
+
+    /**
+     * Return the validated data
+     * 
+     * @return array
+     */
+    public function validated($keys = null)
+    {
+        $input = parent::validated($keys);
+
+        $input['password'] = bcrypt($input['password']);
+
+        return $input;
+    }
 }
