@@ -8,6 +8,7 @@ import store from '../store';
 
 // Page components
 import home from '../pages/home';
+import dashboard from '../pages/dashboard';
 
 import authentication from './authentication';
 
@@ -16,6 +17,13 @@ const routes = [
         path: '/',
         name: 'home',
         component: home,
+        meta: { guestOnly: true },
+    },
+    {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: dashboard,
+        meta: { requiresAuth: true },
     },
     ...authentication,
 ]
