@@ -3,8 +3,14 @@ div.d-grid.basic-grid.main-container
   navbar(
     :title="title"
   )
-  main.container-fluid.bg-light
+  main.container-fluid.bg-light(
+    v-if="loaded"
+  )
     router-view
+  main.container-fluid.bg-light(
+    v-else
+  )
+    | Loading
   end-footer
 </template>
 <script>
@@ -17,6 +23,7 @@ export default {
   },
   data() {
     return {
+      loaded: false,
       title: 'Live-Chat',
       emojis: [
         '🤷‍♀️',
@@ -28,6 +35,20 @@ export default {
         '🍕',
         '🌱',
       ]
+    }
+  },
+  computed: {
+    is_first_load: function() {
+      return this.$store.getters['self/isFirstLoad']
+    }
+  },
+  watch: {
+    is_first_load: function(value) {
+      if (value != false) {
+        return
+      }
+      this.loaded = true
+      this.change_emoji()
     }
   },
   methods: {
