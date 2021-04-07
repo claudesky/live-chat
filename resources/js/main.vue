@@ -1,6 +1,8 @@
 <template lang="pug">
 div.d-grid.basic-grid.main-container
-  navbar
+  navbar(
+    :title="title"
+  )
   main.container-fluid.bg-light
     router-view
   end-footer
@@ -15,10 +17,23 @@ export default {
   },
   data() {
     return {
+      title: 'Live-Chat',
+      emojis: [
+        '🤷‍♀️',
+        '🙌',
+        '🤞',
+        '🥺️',
+        '🍔',
+        '🌮',
+        '🍕',
+        '🌱',
+      ]
     }
   },
-  mounted() {
-    this.$store.dispatch('self/check')
+  async mounted() {
+    await this.$store.dispatch('self/check')
+    let random_emoji = this.emojis[Math.floor(Math.random() * this.emojis.length)];
+    this.title = 'Live-Chat ' + random_emoji
   },
 };
 </script>
