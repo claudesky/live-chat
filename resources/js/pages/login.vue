@@ -39,7 +39,7 @@ export default {
       this.$store
         .dispatch('self/login', this.form_data)
         .then(response => {
-          console.log(response)
+          this.$router.push({name: 'dashboard'})
         })
     }
   }
