@@ -1,6 +1,6 @@
 <template lang="pug">
 nav.navbar.navbar-expand-lg.navbar-light.bg-white
-  a.navbar-brand(href='#') Navbar
+  a.navbar-brand(href='#') {{ title }}
   .collapse.navbar-collapse.justify-content-end
     .navbar-nav
       router-link(
@@ -13,6 +13,12 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-white
 </template>
 <script>
 export default {
+  props: {
+    title: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
     }
