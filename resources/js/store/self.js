@@ -3,12 +3,16 @@ import axios from "axios";
 export default {
   namespaced: true,
   state: () => ({
+    first_load: true,
     logged_in: false,
     id: null,
     email: '',
     name: '',
   }),
   mutations: {
+    done_first_load(state) {
+      state.first_load = false
+    },
     login(state, user_data) {
       state.logged_in = true;
       state.id = user_data.id;
@@ -33,6 +37,9 @@ export default {
         .catch(error => {
           return false
         })
+        .finally(() => {
+          commit('done_first_load')
+        })
     },
     async login({commit}, form_data) {
       return axios
@@ -52,6 +59,9 @@ export default {
   getters: {
     isLoggedIn: state => {
       return state.logged_in
-    }
+    },
+    isFirstLoad: state => {
+      return state.first_load
+    },
   }
 }
