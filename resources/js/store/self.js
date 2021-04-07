@@ -35,6 +35,7 @@ export default {
           return true
         })
         .catch(error => {
+          commit('logout')
           return false
         })
         .finally(() => {
