@@ -30,10 +30,11 @@ export default {
       ]
     }
   },
-  async mounted() {
-    await this.$store.dispatch('self/check')
+  methods: {
+    change_emoji() {
     let random_emoji = this.emojis[Math.floor(Math.random() * this.emojis.length)];
     this.title = 'Live-Chat ' + random_emoji
+    }
   },
 };
 </script>
