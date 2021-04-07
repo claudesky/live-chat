@@ -42,7 +42,7 @@ router.beforeEach((to, from, next) => {
         store.getters['self/isLoggedIn'] &&
         to.meta.guestOnly
     ) {
-        next({name: 'home'})
+        next({name: 'dashboard'})
     }
 
     // If user is not logged in and tring to get authenticated page, redirect to login
