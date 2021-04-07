@@ -36,7 +36,12 @@ const router = new VueRouter({
 })
 
 // Guest authentication guard
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
+    // If it's the first time the application is loading, check for authentication first
+    if (store.getters['self/isFirstLoad']) {
+        await store.dispatch('self/check')
+    }
+
     // If user is logged in and trying to get guest page, redirect to home
     if (
         store.getters['self/isLoggedIn'] &&
