@@ -1,13 +1,19 @@
-const email = 'tester40@example.org'
+const email = 'test@example.org'
 
 describe('Registration and Login Tests', () => {
+  before(() => {
+    cy.refreshDatabase()
+  })
+
   it('Navigates to the registration page and registers', () => {
     // navigate to registration page
     cy.visit('http://localhost:8000/')
     cy.contains('register').click()
     cy.url().should('include', '/register')
     cy.contains('Register').should('be.visible')
+  })
 
+  it('Fills in and submits the registration form', () => {
     // fill in form data
     cy.get('#email')
       .type(email)
@@ -25,9 +31,13 @@ describe('Registration and Login Tests', () => {
     // submit the form
     cy.get('form>button[type="submit"]')
       .click()
-
-    cy.url().should('include', '/login')
   })
+
+  it('Gets redirected to login page', () => {
+    cy.url().should('include', '/login')
+    cy.contains('Login').should('be.visible')
+  })
+
   it('Logs in the new user', () => {
     cy.get('#email')
       .type(email)
@@ -40,11 +50,8 @@ describe('Registration and Login Tests', () => {
     cy.get('form>button[type="submit"]')
       .click()
   })
-  it('Visits the dashboard', () => {
-    cy.contains('home')
-      .click()
 
+  it('Get redirected to the dashboard', () => {
     cy.url().should('include', '/dashboard')
-    cy.contains('dashboard').should('be.visible')
   })
 })
