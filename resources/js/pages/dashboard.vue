@@ -1,15 +1,13 @@
 <template lang="pug">
-.d-flex
-  sidebar.flex-grow-1
-  message-view.flex-grow-11
+.h-100.d-flex
+  sidebar.sidebar
+  router-view.flex-grow-1
 </template>
 <script>
 import sidebar from '../components/sidebar'
-import messageView from '../components/message-view'
 export default {
   components: {
     'sidebar': sidebar,
-    'message-view' : messageView,
   },
   data() {
     return {
@@ -17,3 +15,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+.sidebar {
+  max-width: 24rem;
+  min-width: 24rem;
+}
+</style>
