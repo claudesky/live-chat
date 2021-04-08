@@ -8,9 +8,10 @@ import store from '../store';
 
 // Page components
 import home from '../pages/home';
-import dashboard from '../pages/dashboard';
 
+// Routes
 import authentication from './authentication';
+import dashboard from './dashboard';
 
 const routes = [
     {
@@ -19,12 +20,7 @@ const routes = [
         component: home,
         meta: { guestOnly: true },
     },
-    {
-        path: '/dashboard',
-        name: 'dashboard',
-        component: dashboard,
-        meta: { requiresAuth: true },
-    },
+    ...dashboard,
     ...authentication,
 ]
 
@@ -47,7 +43,7 @@ router.beforeEach(async (to, from, next) => {
         store.getters['self/isLoggedIn'] &&
         to.meta.guestOnly
     ) {
-        next({name: 'dashboard'})
+        next({name: 'discover'})
     }
 
     // If user is not logged in and tring to get authenticated page, redirect to login
