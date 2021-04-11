@@ -44,6 +44,7 @@ router.beforeEach(async (to, from, next) => {
         to.meta.guestOnly
     ) {
         next({name: 'discover'})
+        return
     }
 
     // If user is not logged in and tring to get authenticated page, redirect to login
@@ -52,6 +53,7 @@ router.beforeEach(async (to, from, next) => {
         to.meta.requiresAuth
     ) {
         next({name: 'login'})
+        return
     }
 
     next()
