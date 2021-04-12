@@ -29,13 +29,13 @@ export default {
     },
     'links': function() {
       let common_links = [
+      ]
+
+      let guest_links = [
         {
           'text': 'home',
           'route': {name: 'home'},
         },
-      ]
-
-      let guest_links = [
         {
           'text': 'login',
           'route': {name: 'login'},
