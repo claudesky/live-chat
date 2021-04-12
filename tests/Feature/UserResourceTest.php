@@ -47,4 +47,21 @@ class UserResourceTest extends TestCase
 
         $response->assertJson($expected_content);
     }
+
+    public function test_users_index_fails_when_unauthenticated()
+    {
+        $user_count = $this->default_user_count;
+
+        $this->seedUsers($user_count);
+
+        $uri = $this->base_uri;
+
+        $response = $this
+            ->json(
+                'GET',
+                $uri
+            );
+
+        $response->assertForbidden();
+    }
 }
