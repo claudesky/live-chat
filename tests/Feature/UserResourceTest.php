@@ -71,9 +71,7 @@ class UserResourceTest extends TestCase
 
     public function test_users_show_works()
     {
-        $user_count = $this->default_user_count;
-
-        $this->seedUsers($user_count);
+        $this->seedUsers();
 
         // Get the first user as our tester
         $user = User::first();
