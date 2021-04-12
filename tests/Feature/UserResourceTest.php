@@ -64,4 +64,32 @@ class UserResourceTest extends TestCase
 
         $response->assertForbidden();
     }
+
+    public function test_users_show_works()
+    {
+        $user_count = $this->default_user_count;
+
+        $this->seedUsers($user_count);
+
+        // Get the first user as our tester
+        $user = User::first();
+
+        // Get the second user as our subject
+        $subject_user = User::find(2);
+
+        $uri = $this->base_uri . "/$subject_user->id";
+
+        $response = $this
+            ->actingAs($user)
+            ->json(
+                'GET',
+                $uri
+            );
+
+        $response->assertStatus(200);
+
+        $expected_content = (new UserResource($subject_user))->toArray(new Request());
+
+        $response->assertJson($expected_content);
+    }
 }
