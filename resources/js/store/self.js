@@ -54,7 +54,15 @@ export default {
         })
     },
     logout({commit}) {
-      commit('logout')
+      return axios
+        .post(
+          '/api/logout',
+          {}
+        )
+        .then((response) => {
+          commit('logout')
+          return true
+        })
     }
   },
   getters: {
