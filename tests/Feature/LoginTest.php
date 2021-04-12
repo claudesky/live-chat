@@ -47,6 +47,56 @@ class LoginTest extends TestCase
         );
     }
 
+    public function test_logout_works_after_login()
+    {
+        $user = User::create([
+            'email' => 'test@example.org',
+            'name' => 'John Doe',
+            'password' => bcrypt('password'),
+        ]);
+
+        $login_uri = $this->base_uri;
+
+        $logout_uri = '/api/logout';
+
+        $payload = [
+            'email' => 'test@example.org',
+            'password' => 'password',
+        ];
+
+        $login_response = $this->json(
+            'POST',
+            $login_uri,
+            $payload,
+        );
+
+        $login_response->assertStatus(200);
+
+        $this->assertTrue(
+            auth()->check(),
+            'No user is logged in'
+        );
+
+        $this->assertEquals(
+            $user->id,
+            auth()->user()->id,
+            'The wrong user is logged in'
+        );
+
+        $logout_response = $this->json(
+            'POST',
+            $logout_uri,
+            [],
+        );
+
+        $logout_response->assertStatus(200);
+
+        $this->assertFalse(
+            auth()->check(),
+            'User is still logged in'
+        );
+    }
+
     public function test_valid_login_returns_user()
     {
         $user = User::create([
