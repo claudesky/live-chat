@@ -31,3 +31,8 @@ Route::post('/register', [AuthController::class, 'register'])
 
 Route::post('/login', [AuthController::class, 'login'])
     ->name('login');
+
+// Error catchall
+Route::any('{any?}', function () {
+    return response('Resource not found', 404);
+})->where('any', '.*');
