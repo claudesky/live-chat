@@ -15,6 +15,13 @@ import dashboard from './dashboard';
 
 const routes = [
     {
+        path: '#',
+        name: 'reload',
+        beforeEnter: (to, from, next) => {
+            window.location = '/'
+        }
+    },
+    {
         path: '/',
         name: 'home',
         component: home,
