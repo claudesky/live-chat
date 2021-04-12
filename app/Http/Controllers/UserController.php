@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserResources\IndexRequest;
+use App\Http\Requests\UserResources\ShowRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class UserController extends Controller
      * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(ShowRequest $request, User $user)
     {
         return $user;
     }
