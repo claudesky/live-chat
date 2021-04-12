@@ -32,6 +32,21 @@ Route::post('/register', [AuthController::class, 'register'])
 Route::post('/login', [AuthController::class, 'login'])
     ->name('login');
 
+// For testing and debugging only
+Route::group(['prefix' => 'test'], function() {
+
+    Route::get('/unauthenticated', function() {
+            return response(null, 204);
+        })
+        ->name('test.unauthenticated');
+
+    Route::get('/authenticated', function() {
+            return response(null, 204);
+        })
+        ->middleware('auth')
+        ->name('test.authenticated');
+});
+
 // Error catchall
 Route::any('{any?}', function () {
     return response('Resource not found', 404);
