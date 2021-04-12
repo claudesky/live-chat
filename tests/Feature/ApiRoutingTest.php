@@ -57,4 +57,17 @@ class ApiRoutingTest extends TestCase
 
         $response->assertSuccessful();
     }
+
+    public function test_authenticated_endpoint_fails_when_unauthenticated()
+    {
+        $uri = $this->base_uri . '/authenticated';
+
+        $response = $this
+            ->json(
+                'GET',
+                $uri
+            );
+
+        $response->assertUnauthorized();
+    }
 }
