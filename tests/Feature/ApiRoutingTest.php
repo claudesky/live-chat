@@ -23,4 +23,17 @@ class ApiRoutingTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_unauthenticated_endpoint_succeeds()
+    {
+        $uri = $this->base_uri . '/unauthenticated';
+
+        $response = $this
+            ->json(
+                'GET',
+                $uri
+            );
+
+        $response->assertSuccessful();
+    }
 }
