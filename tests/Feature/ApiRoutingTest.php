@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -29,6 +30,26 @@ class ApiRoutingTest extends TestCase
         $uri = $this->base_uri . '/unauthenticated';
 
         $response = $this
+            ->json(
+                'GET',
+                $uri
+            );
+
+        $response->assertSuccessful();
+    }
+
+    public function test_authenticated_endpoint_succeeds_when_authenticated()
+    {
+        $user = User::create([
+            'email' => 'test@example.org',
+            'name' => 'John Doe',
+            'password' => bcrypt('password'),
+        ]);
+
+        $uri = $this->base_uri . '/authenticated';
+
+        $response = $this
+            ->actingAs($user)
             ->json(
                 'GET',
                 $uri
