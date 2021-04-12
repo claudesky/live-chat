@@ -16,8 +16,12 @@ class UserResourceTest extends TestCase
 
     private $default_user_count = 10;
 
-    private function seedUsers($user_count)
+    private function seedUsers($user_count = null)
     {
+        if (is_null($user_count)) {
+            $user_count = $this->default_user_count;
+        }
+
         User::factory($user_count)->create();
     }
 
