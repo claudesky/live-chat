@@ -1,6 +1,8 @@
 <template lang="pug">
 nav.navbar.navbar-expand-lg.navbar-light.bg-white
-  a.navbar-brand(href='#') {{ title }}
+  router-link.navbar-brand(
+    :to="{ name: 'reload' }"
+  ) {{ title }}
   .collapse.navbar-collapse.justify-content-end
     .navbar-nav
       router-link(
