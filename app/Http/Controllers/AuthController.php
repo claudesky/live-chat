@@ -37,4 +37,15 @@ class AuthController extends Controller
 
         return $user;
     }
+
+    public function logout()
+    {
+        $current_user = auth()->user();
+
+        if ($current_user) {
+            Auth::logout();
+        }
+
+        return response('Logged out');
+    }
 }
