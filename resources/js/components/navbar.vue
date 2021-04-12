@@ -48,10 +48,6 @@ export default {
 
       let authorized_links = [
         {
-          'text': 'account',
-          'route': {name: 'login'},
-        },
-        {
           'text': 'logout',
           'route': {name: 'logout'},
         },
