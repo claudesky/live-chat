@@ -9,7 +9,7 @@ class ApiRoutingTest extends TestCase
 {
     use RefreshDatabase;
 
-    private $base_uri = '/api';
+    private $base_uri = '/api/test';
 
     public function test_nonexistent_endpoint_returns_404()
     {
