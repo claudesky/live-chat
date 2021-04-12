@@ -96,4 +96,22 @@ class UserResourceTest extends TestCase
 
         $response->assertJson($expected_content);
     }
+
+    public function test_users_show_fails_when_unauthenticated()
+    {
+        $this->seedUsers();
+
+        // Get the second user as our subject
+        $subject_user = User::find(2);
+
+        $uri = $this->base_uri . "/$subject_user->id";
+
+        $response = $this
+            ->json(
+                'GET',
+                $uri
+            );
+
+        $response->assertForbidden();
+    }
 }
