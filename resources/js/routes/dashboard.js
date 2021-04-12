@@ -8,6 +8,7 @@ export default [
     {
         path: '/dashboard',
         name: 'dashboard',
+        redirect: { name: 'discover' },
         component: dashboard,
         meta: { requiresAuth: true },
         children: [
