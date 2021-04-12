@@ -53,7 +53,7 @@ export default {
         },
         {
           'text': 'logout',
-          'route': {name: 'register'},
+          'route': {name: 'logout'},
         },
       ]
 
